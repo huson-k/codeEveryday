@@ -8,11 +8,33 @@
 from typing import List
 
 class Solution:
+    '''
+        1. 暴力枚举： 枚举数组中的每一个数 x，寻找数组中是否存在 target - x
+        复杂度分析
+            时间复杂度：O(N^2)，其中 N 是数组中的元素数量。最坏情况下数组中任意两个数都要被匹配一次。
+            空间复杂度：O(1)
+    '''
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        for i in range(len(nums)):
-            for j in range(i + 1, len(nums)):
+        n = len(nums)
+        for i in range(n):
+            for j in range(i + 1, n):
                 if nums[i] + nums[j] == target:
                     return [i, j]
+        return []
+
+    '''
+        2. 哈希表寻找 target - x 的时间复杂度降低到从 O(N) 降低到 O(1)
+        复杂度分析
+            时间复杂度：O(N)
+            空间复杂度：O(N)
+    '''
+    def twoSum_hash(self, nums: List[int], target: int) -> List[int]:
+        hashtable = dict()
+        for i, num in enumerate(nums):
+            if target - num in hashtable:
+                return [hashtable[target - num], i]
+            hashtable[nums[i]] = i
+        return []
 
 def test_twoSum():
     solution = Solution()
